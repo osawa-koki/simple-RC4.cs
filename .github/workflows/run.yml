@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+env:
+  args: "--key kkk --message mmmmmmmm"
+
 jobs:
   dotnet-test:
     runs-on: ubuntu-latest
@@ -32,4 +35,4 @@ jobs:
       - name: Build
         run: dotnet publish -c Release -o ./bin
       - name: Run
-        run: dotnet ./bin/Program.dll
+        run: dotnet ./bin/Program.dll ${{ env.args }}
