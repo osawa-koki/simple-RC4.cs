@@ -1,18 +1,25 @@
-﻿using simple_rc4_cs;
+﻿using CommandLine;
+using simple_rc4_cs;
 
-Console.Write("Key: ");
-string key = Console.ReadLine()!;
-Console.Write("Message: ");
-string message = Console.ReadLine()!;
+Parser.Default.ParseArguments<Options>(args)
+  .WithParsed(options =>
+  {
+    string key = options.Key!;
+    string message = options.Message!;
 
-Console.WriteLine($"key: {key}");
-Console.WriteLine($"message: {message}");
+    string encryptResult = RC4.Encrypt(message, key);
+    string decryptResult = RC4.Decrypt(encryptResult, key);
 
-Console.Clear();
+    Console.WriteLine($"original: {message}");
+    Console.WriteLine($"encrypt: {encryptResult}");
+    Console.WriteLine($"decrypt: {decryptResult}");
+  });
 
-string encryptResult = RC4.Encrypt(message, key);
-string decryptResult = RC4.Decrypt(encryptResult, key);
+class Options
+{
+  [Option('k', "key", Required = true, HelpText = "暗号化キー")]
+  public string? Key { get; set; }
 
-Console.WriteLine($"original: {message}");
-Console.WriteLine($"encrypt: {encryptResult}");
-Console.WriteLine($"decrypt: {decryptResult}");
+  [Option('m', "message", Required = true, HelpText = "暗号化するメッセージ")]
+  public string? Message { get; set; }
+}
