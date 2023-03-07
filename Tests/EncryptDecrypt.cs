@@ -1,43 +1,47 @@
 using System.Security.Cryptography;
 
-public class RC4Tests
+namespace simple_rc4_cs
 {
-  private string GenerateRandomString(int length)
+  public class RC4Tests
   {
-    const string charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    return new string(Enumerable.Range(0, length).Select(i => charset[RandomNumberGenerator.GetInt32(charset.Length)]).ToArray());
-  }
-
-  [Fact]
-  public void ShouldEncryptAndDecryptMessageWithTheSameKey()
-  {
-    for (int i = 0; i < 100; i++)
+    private string GenerateRandomString(int length)
     {
-      string message = GenerateRandomString(20);
-      string key = GenerateRandomString(10);
-      string encryptedMessage = RC4.Encrypt(message, key);
-      string decryptedMessage = RC4.Decrypt(encryptedMessage, key);
-
-      Assert.Equal(message, decryptedMessage);
+      const string charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      return new string(Enumerable.Range(0, length).Select(i => charset[RandomNumberGenerator.GetInt32(charset.Length)]).ToArray());
     }
-  }
 
-  [Fact]
-  public void ShouldNotDecryptMessageWithDifferentKey()
-  {
-    for (int i = 0; i < 100; i++)
+    [Fact]
+    public void ShouldEncryptAndDecryptMessageWithTheSameKey()
     {
-      string message = GenerateRandomString(20);
-      string key = GenerateRandomString(10);
-      string encryptedMessage = RC4.Encrypt(message, key);
-      string differentKey = GenerateRandomString(10);
-      if (differentKey == key)
+      for (int i = 0; i < 100; i++)
       {
-        continue;
-      }
-      string decryptedMessage = RC4.Decrypt(encryptedMessage, differentKey);
+        string message = GenerateRandomString(20);
+        string key = GenerateRandomString(10);
+        string encryptedMessage = RC4.Encrypt(message, key);
+        string decryptedMessage = RC4.Decrypt(encryptedMessage, key);
 
-      Assert.NotEqual(message, decryptedMessage);
+        Assert.Equal(message, decryptedMessage);
+      }
+    }
+
+    [Fact]
+    public void ShouldNotDecryptMessageWithDifferentKey()
+    {
+      for (int i = 0; i < 100; i++)
+      {
+        string message = GenerateRandomString(20);
+        string key = GenerateRandomString(10);
+        string encryptedMessage = RC4.Encrypt(message, key);
+        string differentKey = GenerateRandomString(10);
+        if (differentKey == key)
+        {
+          continue;
+        }
+        string decryptedMessage = RC4.Decrypt(encryptedMessage, differentKey);
+
+        Assert.NotEqual(message, decryptedMessage);
+      }
     }
   }
+
 }

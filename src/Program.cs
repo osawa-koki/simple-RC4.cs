@@ -1,4 +1,6 @@
-﻿Console.Write("Key: ");
+﻿using simple_rc4_cs;
+
+Console.Write("Key: ");
 string key = Console.ReadLine()!;
 Console.Write("Message: ");
 string message = Console.ReadLine()!;

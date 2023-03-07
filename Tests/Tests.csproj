@@ -6,6 +6,8 @@
     <Nullable>enable</Nullable>
 
     <IsPackable>false</IsPackable>
+
+    <RootNamespace>simple_rc4_cs</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
