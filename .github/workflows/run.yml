@@ -20,6 +20,7 @@ jobs:
         run: dotnet test ./Tests
   dotnet-run:
     runs-on: ubuntu-latest
+    needs: dotnet-test
     steps:
       - uses: actions/checkout@v3
       - name: Setup .NET project
