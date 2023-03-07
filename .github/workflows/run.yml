@@ -16,10 +16,8 @@ jobs:
           dotnet-version: 7.0.x
       - name: Install dependencies
         run: dotnet restore
-        working-directory: ${{ env.working-directory }}
       - name: Test
         run: dotnet test ./Tests
-        working-directory: ${{ env.working-directory }}
   dotnet-run:
     runs-on: ubuntu-latest
     steps:
